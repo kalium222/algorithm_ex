@@ -1,4 +1,3 @@
-#include <cstddef>
 struct ListNode {
     int val;
     ListNode *next;
@@ -11,13 +10,13 @@ class Solution {
 public:
     ListNode* reverseList(ListNode* head)
     {
-        ListNode *p = head, *last = nullptr, *temp;
+        ListNode *p = head, *last = nullptr, *next;
         while (p)
         {
-            temp = p->next;
+            next = p->next;
             p->next = last;
             last = p;
-            p = temp;
+            p = next;
         }
         return last;
     }
