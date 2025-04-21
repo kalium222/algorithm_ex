@@ -26,11 +26,13 @@ public:
         return temp;
     }
     
-    int top() {
+    int top()
+    {
         return q.back();
     }
     
-    bool empty() {
+    bool empty()
+    {
         return q.empty();
     }
 };
