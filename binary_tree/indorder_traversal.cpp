@@ -59,4 +59,38 @@ public:
         }
         return res;
     }
+
+    // morris
+    vector<int> method3(TreeNode *root)
+    {
+        auto cur = root;
+        auto temp = root;
+        vector<int> res{};
+        while (cur)
+        {
+            if (cur->left)
+            {
+                temp = cur->left;
+                while (temp->right && temp->right!=cur)
+                    temp = temp->right;
+                if (!temp->right)
+                {
+                    temp->right = cur;
+                    cur = cur->left;
+                }
+                else
+                {
+                    temp->right = nullptr;
+                    res.push_back(cur->val);
+                    cur = cur->right;
+                }
+            }
+            else
+            {
+                res.push_back(cur->val);
+                cur = cur->right;
+            }
+        }
+        return res;
+    }
 };
