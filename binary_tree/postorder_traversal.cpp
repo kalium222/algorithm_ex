@@ -91,6 +91,40 @@ public:
     // morris
     vector<int> method4(TreeNode *root)
     {
-        // TODO:
+        // 不会
+        vector<int> res;
+        TreeNode dump(0);
+        dump.left = root;
+        TreeNode *cur = &dump;
+        while (cur) {
+            if (cur->left == nullptr) {
+                cur = cur->right;
+            } else {
+                TreeNode *prev = cur->left;
+                while (prev->right && prev->right != cur) {
+                    prev = prev->right;
+                }
+                if (prev->right == nullptr) {
+                    prev->right = cur;
+                    cur = cur->left;
+                } else {
+                    // 反转从 cur->left 到 prev 的路径
+                    TreeNode *start = cur->left;
+                    vector<int> tmp;
+                    while (start != prev) {
+                        tmp.push_back(start->val);
+                        start = start->right;
+                    }
+                    tmp.push_back(prev->val);
+                    reverse(tmp.begin(), tmp.end());
+                    for (int num : tmp) {
+                        res.push_back(num);
+                    }
+                    prev->right = nullptr;
+                    cur = cur->right;
+                }
+            }
+        }
+        return res;
     }
 };
