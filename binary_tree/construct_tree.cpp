@@ -19,7 +19,7 @@ public:
         auto right_in = vector<int>(p_in+1, inorder.end());
         auto p_post = postorder.begin() + left_in.size();
         auto left_post = vector<int>(postorder.begin(), p_post);
-        auto right_post = vector<int>(p_post, postorder.end());
+        auto right_post = vector<int>(p_post, postorder.end()-1);
 
         if (left_in.size()==0)
             left = nullptr;
@@ -38,3 +38,12 @@ public:
         return root;
     }
 };
+
+int main(void)
+{
+    Solution s{};
+    vector<int> v1 = {9,3,15,20,7};
+    vector<int> v2 = {9,15,7,20,3};
+    s.buildTree(v1, v2);
+    return 0;
+}
