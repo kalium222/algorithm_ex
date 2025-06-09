@@ -60,7 +60,7 @@ public:
         vector<int> res{};
         while (cur)
         {
-            if (cur->left)
+            if ((temp = cur->left))
             {
                 temp = cur->left;
                 while (temp->right && temp->right!=cur)
