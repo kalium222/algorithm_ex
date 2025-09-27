@@ -9,6 +9,8 @@ class MountainArray {
 
 // TODO:
 // https://leetcode.com/problems/find-in-mountain-array/
+
+// NOTE: this is not fast enough to pass all the tests
 class Solution {
 public:
     int findInMountainArray(int target, MountainArray &mountainArr) {
@@ -54,4 +56,48 @@ public:
         }
     }
 };
-// NOTE: this is not fast enough to pass all the tests
+
+// NOTE: this is enough
+class Solution2 {
+public:
+    int findInMountainArray(int target, MountainArray &mountainArr) {
+        int peak = findPeak(mountainArr);
+        if (target>mountainArr.get(peak)) return -1;
+        if (target==mountainArr.get(peak)) return peak;
+        int left_res = bsearch(target, 0, peak-1, mountainArr, false);
+        return left_res!=-1 ? left_res : bsearch(target, mountainArr.length()-1, peak + 1, mountainArr, true);
+    }
+
+    int findPeak(MountainArray &mountainArr) {
+        int head = 1, tail = mountainArr.length() - 2;
+        int mid;
+        while (head<tail) {
+            mid = (head+tail)/2;
+            if (mountainArr.get(mid)>mountainArr.get(mid+1)) {
+                tail = mid;
+            } else {
+                head = mid + 1;
+            }
+        }
+        return head;
+    }
+
+    int bsearch(int target, int head, int tail, MountainArray &mountainArr, bool reversed) {
+        int mid;
+        int m;
+        while (head!=tail) {
+            mid = (head+tail)/2;
+            mid = reversed ? mid + 1 : mid;
+            m = mountainArr.get(mid);
+            if (m>target) {
+                tail = mid;
+            } else if (m==target) {
+                return mid;
+            } else {
+                head = reversed ? mid - 1 : mid + 1;
+            }
+        }
+        if (mountainArr.get(head)==target) return head;
+        else return -1;
+    }
+};
