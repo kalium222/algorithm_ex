@@ -54,3 +54,18 @@ intersection' l1 l2 =
       | x > y = intersect_sorted l1 ys
       | x == y = x : intersect_sorted xs ys
       | otherwise = intersect_sorted xs l2
+
+product_of_array_except_self l =
+  let suffix = init $ scanl (*) 1 l
+      preffix = tail $ scanr (*) 1 l
+   in zipWith (*) suffix preffix
+
+-- NOTE: use scanl, scanr
+-- suffix_product l = foldr helper [] l
+--   where
+--     helper a [] = [a]
+--     helper a (x : xs) = (a * x) : (x : xs)
+-- preffix_product l = reverse $ foldl helper [] l
+--   where
+--     helper [] a = [a]
+--     helper (x : xs) a = (a * x) : x : xs
